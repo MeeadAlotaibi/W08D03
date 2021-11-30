@@ -20,6 +20,8 @@ app.use(userRouter);
 
 
 ////////// For tasks ////////
+const taskRouter = require("./routers/routes/task");
+app.use(taskRouter);
 
 
 ////////////////////////////////////////////////////////////////////

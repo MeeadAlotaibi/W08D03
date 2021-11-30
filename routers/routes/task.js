@@ -9,3 +9,5 @@ const authentication = require("../middlewares/authentication");
 taskRouter.post("/task", authentication, createTask);
 taskRouter.get("/tasks", authentication, getTasks);
 
+
+module.exports = taskRouter;
