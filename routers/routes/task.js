@@ -19,6 +19,4 @@ taskRouter.put("/task/:id", authentication, updateTask);
 taskRouter.get("/task/:id", authentication, getTaskById);
 
 
-
-
 module.exports = taskRouter;

@@ -6,19 +6,20 @@ require("dotenv").config();
 ///////////// signUp /////////////////
 
 const signup = async (req, res) => {
-  const { email, password, role } = req.body;
+  const { email, password, role } = req.body; // ياخذ من البدي ايميل و باسوورد و رول اللي نوع المستخدم ،، ادمن او يوزر عادي
 
-  const savedEmail = email.toLowerCase();
-  const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT));
+  const savedEmail = email.toLowerCase(); // يحول الايميل اللي كتبته في البودي الى احرف صغيرة
 
-  const newUser = new userModel({
+  const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT)); //يعمل تشفير للبيانات // ويحول سولت الى رقم ، لان اتوقع انها تجي كـ نص ،، مو متاكدة 
+
+  const newUser = new userModel({ // يخزن القيّم المشفرة
     email: savedEmail,
     password: hashedPassword,
     role,
   });
 
   newUser
-    .save()
+    .save() // يحفظهم
     .then((result) => {
       res.status(200).send(result);
     })
@@ -32,27 +33,25 @@ const signup = async (req, res) => {
 
 
 const signin = (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body; // ياخذ من البدي ايميل و باسوورد 
 
-  const savedEmail = email.toLowerCase();
+  const savedEmail = email.toLowerCase(); // يحول الايميل اللي كتبته في البودي الى احرف صغيرة 
 
   userModel
-    .findOne({ email: savedEmail })
-    .then(async (result) => {
-      if (result) {
-        if (result.email == savedEmail) {
-          const checkedPassword = await bcrypt.compare(
+    .findOne({ email: savedEmail }) // ابحث عن الايميل اللي حولته الى احرف صغيرة
+    .then(async (result) => { // النتيجة تحتاج وقت 
+      if (result) {// اذا فيه نتيجة ؟
+        if (result.email == savedEmail) { // قارن الايميل الي حولته بالايميل الموجود سابقاً
+          const checkedPassword = await bcrypt.compare( // هنا كومبير يفك التشفير و يقارن بين الباسوود المشفرة و الباسوورد الاصليه 
             password,
             result.password
           );
-          if (checkedPassword) {
+          if (checkedPassword) { // اذا نتيجة المقارنة صحيحة
             const payload = { role: result.role, id: result._id };
-            const options = { expiresIn: "60m" };
-
+            const options = { expiresIn: "60m" }; // اعطي للتوكن عمر افتراضي ٦٠ دقيقة ،، واقدر احط المده اللي ابغاها لكن يفضل ما تكون مده طويلة عشان الحماية 
 
             const secret = process.env.secretKey;
 
-            
             const token = await jwt.sign(payload, secret, options);
             res.status(200).send({ result, token });
           } else {
@@ -74,7 +73,7 @@ const signin = (req, res) => {
 
 const getAllUsers = (req, res) => {
   userModel
-    .find({})
+    .find({}) // اوجد يجميع اليوزر 
     .then((result) => {
       res.status(200).json(result);
     })
@@ -85,10 +84,10 @@ const getAllUsers = (req, res) => {
 ///////////////// Delete User ////////////////////
 
 const deleteUser = (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id; // احذف يوزر بالايدي
   console.log(id);
   userModel
-    .findByIdAndDelete(id)
+    .findByIdAndDelete(id) // ميثود تحذف 
     .then(() => {
       res.status(200).json("user removed");
     })
@@ -96,4 +95,8 @@ const deleteUser = (req, res) => {
       res.status(400).json(err);
     });
 };
+
+
+//////////////// تصدير للفنكشنز ///////////////////////////////
+
 module.exports = { signup, signin, getAllUsers, deleteUser };
