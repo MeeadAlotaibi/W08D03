@@ -26,10 +26,27 @@ const getTasks = (req, res) => {
     });
 };
 
+///////////////// Delete Task //////////////////////////////
 
-
-
-
+const deleteTask = (req, res) => {
+  const id  = req.params.id;
+  taskModel
+    .findByIdAndUpdate(id, {
+      $set: {
+        isDeleted: true,
+      },
+    })
+    .then((result) => {
+      if (result) {
+        res.status(200).json("Task is deleted");
+      } else {
+        res.status(404).json("user does not exist");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
 
 ////////////تصدير الفنكشنز ///////////
-module.exports = { createTask, getTasks };
+module.exports = { createTask, getTasks, deleteTask };
