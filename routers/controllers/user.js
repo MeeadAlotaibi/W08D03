@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+///////////// signUp /////////////////
+
 const signup = async (req, res) => {
   const { email, password, role } = req.body;
 
@@ -25,6 +27,10 @@ const signup = async (req, res) => {
     });
 };
 
+
+///////////// signin /////////////////
+
+
 const signin = (req, res) => {
   const { email, password } = req.body;
 
@@ -41,7 +47,7 @@ const signin = (req, res) => {
           );
           if (checkedPassword) {
             const payload = { role: result.role };
-            const options = { expiresIn: "1h" };
+            const options = { expiresIn: "60m" };
 
 
             const secret = process.env.secretKey;
