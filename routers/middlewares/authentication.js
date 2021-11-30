@@ -1,17 +1,14 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-
-
-
 /////////////////////////////////////////////////
 
+const secret = process.env.secretKey; // كلمة السر الموجدة في ملف .env
 
-
-const secret = process.env.secretKey;
 const authentication = (req, res, next) => {
   try {
-    if (!req.headers.authorization)
+          console.log(req);
+    if (!req.headers.authorization) /// يتاكد اذا ماعندي توكن أو لا ؟
       return res.status(403).send({ message: "forbidden" });
     const token = req.headers.authorization.split(" ")[1];
     const parsedToken = jwt.verify(token, secret);

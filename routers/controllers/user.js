@@ -70,4 +70,30 @@ const signin = (req, res) => {
     });
 };
 
-module.exports = { signup, signin };
+///////////////// Get all Users //////////////
+
+const getAllUsers = (req, res) => {
+  userModel
+    .find({})
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+///////////////// Delete User ////////////////////
+
+const deleteUser = (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  userModel
+    .findByIdAndDelete(id)
+    .then(() => {
+      res.status(200).json("user removed");
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+module.exports = { signup, signin, getAllUsers, deleteUser };
