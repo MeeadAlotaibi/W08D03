@@ -53,11 +53,13 @@ const deleteTask = (req, res) => {
 
 const updateTask = (req, res) => {
   const name = req.body.name;
+  const isDeleted = req.body.isDeleted;
   const id = req.params.id;
   taskModel
     .findByIdAndUpdate(id, {
       $set: {
         name: name,
+        isDeleted: isDeleted,
       },
     })
     .then((result) => {
@@ -88,9 +90,6 @@ const getTaskById = (req, res) => {
       res.status(400).json(err);
     });
 };
-
-
-
 
 ////////////تصدير الفنكشنز ///////////
 module.exports = { createTask, getTasks, deleteTask, updateTask, getTaskById };

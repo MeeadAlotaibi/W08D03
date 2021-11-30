@@ -46,7 +46,7 @@ const signin = (req, res) => {
             result.password
           );
           if (checkedPassword) {
-            const payload = { role: result.role };
+            const payload = { role: result.role, id: result._id };
             const options = { expiresIn: "60m" };
 
 

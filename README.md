@@ -22,7 +22,7 @@ Import the Project
 
 1. Clone the repo
    ```
-   git clone https://github.com/Almutairi9/W08D03.git 
+   git clone https://github.com/me/W08D03.git 
    ```
 2. npm i "to install all packages for this project"
 
