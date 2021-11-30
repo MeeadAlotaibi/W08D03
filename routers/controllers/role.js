@@ -17,4 +17,16 @@ const create = (req, res) => {
       res.status(400).send(err);
     });
 };
-module.exports = { create };
+
+const roles = (req, res) => {
+  rolerModel
+    .find({})
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+module.exports = { create, roles };
