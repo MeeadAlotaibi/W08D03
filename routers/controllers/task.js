@@ -1,6 +1,6 @@
 const taskModel = require("./../../db/models/task");
 
-/////////// Create New Task ///////////
+/////////////// Create New Task ///////////////////////////
 
 const createTask = (req, res) => {
   const newTask = new taskModel({ name: req.body.name, user: req.token.id });
@@ -13,7 +13,8 @@ const createTask = (req, res) => {
       res.status(400).json(err);
     });
 };
-///////////// Get All the  Tasks That  aren't Deleted ///////////////////
+
+/////////// Get All the  Tasks That  aren't Deleted /////////
 
 const getTasks = (req, res) => {
   taskModel
@@ -26,10 +27,10 @@ const getTasks = (req, res) => {
     });
 };
 
-///////////////// Delete Task //////////////////////////////
+///////////////// Delete Task ////////////////////////////
 
 const deleteTask = (req, res) => {
-  const id  = req.params.id;
+  const id = req.params.id;
   taskModel
     .findByIdAndUpdate(id, {
       $set: {
@@ -48,5 +49,48 @@ const deleteTask = (req, res) => {
     });
 };
 
+////////////// Update Task ////////////////////////
+
+const updateTask = (req, res) => {
+  const name = req.body.name;
+  const id = req.params.id;
+  taskModel
+    .findByIdAndUpdate(id, {
+      $set: {
+        name: name,
+      },
+    })
+    .then((result) => {
+      if (result) {
+        res.status(200).json("Task is updated");
+      } else {
+        res.status(404).json("Task has not been found");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+/////////////// Get Task By Id ///////////////////////
+
+const getTaskById = (req, res) => {
+  const { id } = req.params;
+  taskModel
+    .find({ _id: id, user: req.token.id })
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json("Task does not exist");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
+
+
+
 ////////////تصدير الفنكشنز ///////////
-module.exports = { createTask, getTasks, deleteTask };
+module.exports = { createTask, getTasks, deleteTask, updateTask, getTaskById };
