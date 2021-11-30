@@ -23,8 +23,7 @@ Import the Project
 1. Clone the repo
    ```
 <<<<<<< HEAD
-   git clone https://github.com/me/W08D03.git 
-=======
+ 
    git clone https://github.com/MeeadAlotaibi/W08D03
 >>>>>>> eb30f4534b6ec97d617f38879c40e09d61de3d00
    ```
