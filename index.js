@@ -10,8 +10,14 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors());
 
+//////// For Role //////////
 const roleRouter = require("./routers/routes/role");
 app.use(roleRouter);
+
+//////// For User ///////////
+const userRouter = require("./routers/routes/user");
+app.use(userRouter);
+
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
