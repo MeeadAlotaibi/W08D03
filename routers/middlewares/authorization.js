@@ -1,19 +1,21 @@
 const rolerModel = require("./../../db/models/role");
 
-///////////////////// التصريحات /////////////////////////
-
-const authorization = async (req, res, next) => { // تحتاج وقت نحذ اسينك
+const authorization = async (req, res, next) => {
   try {
-    const roleId = req.token.role; // نحزن الرول في متغير 
+    const roleId = req.token.role;
+
     const result = await rolerModel.findById(roleId);
+
     console.log(result.role);
-    if (result.role === "admin") { // اذا كان تصريحه يساوي آدمن 
-      next(); // اطلع و روح للكونترولر 
+
+    if (result.role === "admin") {
+      next();
     } else {
-      return res.status(403).send({ message: "forbidden" }); // اذا غير مصرح له اظهر هذا المسج
+      return res.status(403).send({ message: "forbidden" });
     }
   } catch (error) {
     res.status(403).send(error);
   }
 };
+
 module.exports = authorization;

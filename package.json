@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MeeadAlotaibi/W08D03.git"
+    "url": "git+https://github.com/SaharAlassaf/W08D03.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MeeadAlotaibi/W08D03/issues"
+    "url": "https://github.com/SaharAlassaf/W08D03/issues"
   },
-  "homepage": "https://github.com/MeeadAlotaibi/W08D03#readme",
+  "homepage": "https://github.com/SaharAlassaf/W08D03#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",

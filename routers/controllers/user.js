@@ -3,23 +3,20 @@ const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-///////////// signUp /////////////////
-
 const signup = async (req, res) => {
-  const { email, password, role } = req.body; // ياخذ من البدي ايميل و باسوورد و رول اللي نوع المستخدم ،، ادمن او يوزر عادي
+  const { email, password, role } = req.body;
 
-  const savedEmail = email.toLowerCase(); // يحول الايميل اللي كتبته في البودي الى احرف صغيرة
+  const savedEmail = email.toLowerCase();
+  const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT));
 
-  const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT)); //يعمل تشفير للبيانات // ويحول سولت الى رقم ، لان اتوقع انها تجي كـ نص ،، مو متاكدة 
-
-  const newUser = new userModel({ // يخزن القيّم المشفرة
+  const newUser = new userModel({
     email: savedEmail,
     password: hashedPassword,
     role,
   });
 
   newUser
-    .save() // يحفظهم
+    .save()
     .then((result) => {
       res.status(200).send(result);
     })
@@ -28,30 +25,24 @@ const signup = async (req, res) => {
     });
 };
 
-
-///////////// signin /////////////////
-
-
 const signin = (req, res) => {
-  const { email, password } = req.body; // ياخذ من البدي ايميل و باسوورد 
+  const { email, password } = req.body;
 
-  const savedEmail = email.toLowerCase(); // يحول الايميل اللي كتبته في البودي الى احرف صغيرة 
+  const savedEmail = email.toLowerCase();
 
   userModel
-    .findOne({ email: savedEmail }) // ابحث عن الايميل اللي حولته الى احرف صغيرة
-    .then(async (result) => { // النتيجة تحتاج وقت 
-      if (result) {// اذا فيه نتيجة ؟
-        if (result.email == savedEmail) { // قارن الايميل الي حولته بالايميل الموجود سابقاً
-          const checkedPassword = await bcrypt.compare( // هنا كومبير يفك التشفير و يقارن بين الباسوود المشفرة و الباسوورد الاصليه 
+    .findOne({ email: savedEmail }).populate("role")
+    .then(async (result) => {
+      if (result) {
+        if (result.email == savedEmail) {
+          const checkedPassword = await bcrypt.compare(
             password,
             result.password
           );
-          if (checkedPassword) { // اذا نتيجة المقارنة صحيحة
-            const payload = { role: result.role, id: result._id };
-            const options = { expiresIn: "60m" }; // اعطي للتوكن عمر افتراضي ٦٠ دقيقة ،، واقدر احط المده اللي ابغاها لكن يفضل ما تكون مده طويلة عشان الحماية 
-
+          if (checkedPassword) {
+            const payload = { id: result._id, role: result.role };
+            const options = { expiresIn: "5h" };
             const secret = process.env.secretKey;
-
             const token = await jwt.sign(payload, secret, options);
             res.status(200).send({ result, token });
           } else {
@@ -69,34 +60,32 @@ const signin = (req, res) => {
     });
 };
 
-///////////////// Get all Users //////////////
-
-const getAllUsers = (req, res) => {
+const users = (req, res) => {
   userModel
-    .find({}) // اوجد يجميع اليوزر 
+    .find({})
     .then((result) => {
-      res.status(200).json(result);
+      res.status(200).send(result);
     })
     .catch((err) => {
-      res.status(400).json(err);
+      res.status(400).send(err);
     });
 };
-///////////////// Delete User ////////////////////
 
 const deleteUser = (req, res) => {
-  const id = req.params.id; // احذف يوزر بالايدي
-  console.log(id);
+  const { id } = req.params;
+
   userModel
-    .findByIdAndDelete(id) // ميثود تحذف 
-    .then(() => {
-      res.status(200).json("user removed");
+    .findByIdAndDelete(id)
+    .then((result) => {
+      if (result) {
+        res.status(201).send(result);
+      } else {
+        res.status(404).send("User already deleted");
+      }
     })
     .catch((err) => {
-      res.status(400).json(err);
+      res.status(400).send(err);
     });
 };
 
-
-//////////////// تصدير للفنكشنز ///////////////////////////////
-
-module.exports = { signup, signin, getAllUsers, deleteUser };
+module.exports = { signup, signin, users, deleteUser };
