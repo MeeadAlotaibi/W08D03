@@ -89,13 +89,13 @@ npm i bcrypt
 npm i jsonwebtoken
 ```
 ---
-### ER digram 
+### ER diagram 
 ![Untitled Workspace (3)](https://github.com/MeeadAlotaibi/W08D03/blob/main/Screen%20Shot%201443-05-04%20at%204.24.45%20PM.png
 )
 
 
 --- 
-### UML 
+### UML diagram
 
 
 ![Untitled Workspace (3)](https://github.com/MeeadAlotaibi/W08D03/blob/main/Screen%20Shot%201443-05-05%20at%202.20.50%20AM.png
