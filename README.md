@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Code Overview
 The main purpose of this repository is to show an authentaction and authorization with Node.js API Server 
 
@@ -87,9 +86,13 @@ npm i bcrypt
 ```
 
 - jsonwebtoken
+
  To genreate tokens
 
 ```bash
 npm i jsonwebtoken
 ```
->>>>>>> 4bbb41f249f70de618da33c577f18210a802a1f9
+---
+### ER digram 
+![Untitled Workspace (3)](https://github.com/MeeadAlotaibi/W08D03/blob/main/Screen%20Shot%201443-05-04%20at%204.24.45%20PM.png
+)
