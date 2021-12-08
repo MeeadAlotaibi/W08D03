@@ -49,10 +49,6 @@ In that file you'll find two sections:
 | nodemon                        | nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.                                                                                      |
 =======
 # To-Do-List
->>>>>>> 4bbb41f249f70de618da33c577f18210a802a1f9
-
-
-<<<<<<< HEAD
 =======
 Project "Login/Signup" as Backend with hashing password and token.
 Creating Roles and Users.
