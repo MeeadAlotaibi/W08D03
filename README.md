@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Code Overview
 The main purpose of this repository is to show an authentaction and authorization with Node.js API Server 
 
@@ -47,5 +48,48 @@ In that file you'll find two sections:
 | jsonwebtoken                   | An implementation of [JSON Web Tokens](https://datatracker.ietf.org/doc/html/rfc7519).   |
 | morgan                        | HTTP request logger middleware for node.js                                                |
 | nodemon                        | nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.                                                                                      |
+=======
+# To-Do-List
+>>>>>>> 4bbb41f249f70de618da33c577f18210a802a1f9
 
 
+<<<<<<< HEAD
+=======
+Project "Login/Signup" as Backend with hashing password and token.
+Creating Roles and Users.
+Roles as first one as Admin and the second one as User.
+Creating Todo Task with 4 CRUD opeartions.
+
+
+### This Task Built With
+
+## Dependencies
+
+- Dotenv
+  To hide our content keys
+
+```bash
+npm i dotenv
+```
+
+- Express
+  To build our server
+
+```bash
+npm i express
+```
+
+- bcrypt
+  To bcrypt the passwords
+
+```bash
+npm i bcrypt
+```
+
+- jsonwebtoken
+ To genreate tokens
+
+```bash
+npm i jsonwebtoken
+```
+>>>>>>> 4bbb41f249f70de618da33c577f18210a802a1f9
